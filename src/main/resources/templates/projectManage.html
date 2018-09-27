@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+
+		<script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+		<script th:src="@{/js/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/layer/layer.js}"></script>
+		<link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" />
+		<link th:href="@{/css/layer/layer.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{assets/css/font-awesome.min.css}" />
+		<script th:src="@{/js/bootstrap/bootstrap-table.js}"></script>
+		<script th:src="@{/js/bootstrap/bootstrap-table-zh-CN.js}"></script>
+		<script th:src="@{/js/bootstrap/bootstrap-paginator.min.js}"></script>
+		<script th:src="@{/js/proManage.table.js}"></script>
+		
+
+	</head>
+	<script type="text/javascript">
+			 function myclear(){
+				$("#fproname").val("");
+				$("#ftest").val("");
+				$("#email").val("");
+			} 
+	</script>
+	<body>
+		<div class="input-group input-group-lg">
+		项目名称：<input type="text" id="fproname" class="input-sm">
+		 测试人员：<input type="text" id="ftest" class="input-sm">
+		  预警邮箱：<input type="text" id="email" class="input-sm">
+		&nbsp;&nbsp;<button class="btn btn-primary" onclick="changeCondition()"><i class="icon-search icon-on-right bigger-110"></i>查询</button>
+		&nbsp;&nbsp;<button class="btn btn-danger" onclick="addPro()"><i class="icon-plus-sign bigger-120 green"></i>新增项目</button>
+		&nbsp;&nbsp;<button class="btn" onclick="myclear()"><i class="icon-undo bigger-110"></i>清空</button>
+		</div>
+		<ul class="nav nav-list"><li class="divider"></li></ul>
+		<table id="ArbetTable"></table>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cps.fs.APImanagerSys.dao.APIDao">
+    <sql id="BaseTable">
+    	t_api
+    </sql>
+    
+    <sql id="Base_column">
+    	frowid, faid, fproid, fapiname, faurl, ftype, fcontenttype, fcasenum, fcreatetime,
+    	fupdatetime
+    </sql>
+    
+    <sql id="upd_column">
+    	faid, fproid, fapiname, faurl, ftype, fcontenttype, fcasenum, fcreatetime,
+    	fupdatetime
+    </sql>
+    
+    <!-- 获取项目列表 -->
+    <select id="selectAPIByPro" resultType="cps.fs.APImanagerSys.model.APIModel">
+    	SELECT
+    	<include refid="Base_column"></include>
+    	FROM
+    	<include refid="BaseTable"></include>
+    	<where> 
+    		<if test="fproid != null and fproid != 0">
+    		 	AND fproid = #{fproid}
+    		</if>
+    	</where>
+    </select>
+    
+     <!-- 获取项目列表 -->
+    <select id="selectAPIList" resultType="cps.fs.APImanagerSys.model.APIModel" parameterType="java.util.Map">
+    	SELECT
+    	<include refid="Base_column"></include>
+    	FROM
+    	<include refid="BaseTable"></include>
+    	<where> 
+    		<if test="fproid != null and fproid != 0">
+    		 	AND fproid = #{fproid}
+    		</if>
+    		<if test="faurl != null and faurl != ''">
+    		 	AND faurl like CONCAT('%',#{faurl},'%')
+    		</if>
+    	</where>
+    	LIMIT #{currentPage}, #{pageSize}
+    </select>
+    
+    
+    <!-- 获取api列表数量 -->
+    <select id="getCount" resultType="Integer" parameterType="java.util.Map">
+    	select count(faid)
+		FROM
+    	<include refid="BaseTable"></include>
+    	<where>
+    		<if test="fproid != null and fproid != 0">
+    		 	AND fproid = #{fproid}
+    		</if>
+    		<if test="faurl != null and faurl != ''">
+    		 	AND faurl like CONCAT('%',#{faurl},'%')
+    		</if>
+   		</where>
+    </select>
+    
+    
+</mapper>

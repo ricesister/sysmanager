@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>新增项目</title>
+	<link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/ace.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/ace-rtl.min.css}" />
+	<script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+	<script th:src="@{/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/js/bootstrap/bootstrap-table.js}"></script>
+	<script th:src="@{/js/bootstrap/bootstrap-table-zh-CN.js}"></script>
+	<script th:src="@{/js/layer/layer.js}"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+	<script type="text/javascript">
+			$().ready(function() {
+				$("#addForm").validate({
+					rules: {
+						email: {
+						    required: false,
+					        email: true
+						},
+						fdescription: "required",
+						fproname:{
+							required: true,
+							minlength:2
+							/* remote:{
+								url:"checkName2",
+								type:"post",
+								dataType:"json",
+								data:{
+									username:function(){
+										return $("#resForm input[name=username]").val();
+									}
+								}
+							} */
+						},
+						ftest:{
+							required: true
+						},
+						furl1: {
+					        required: true,
+					        minlength: 4,
+					        url:true
+				      	}
+				    },
+				    messages: {
+				    	  fdescription:"请输入项目描述",
+					      email: "请输入正确格式的email",
+					      fproname: {
+					    	  required:"请输入项目名",
+					    	  minlength:"用户名长度不能小于2个字符"
+					      },
+					      ftest: {
+						        required: "请选择测试人员"
+						  },
+						  furl1: {
+					    	    required: "请输入该项目地址",
+					    	    url: "请输入正确url"
+					      }
+				    },
+				    submitHandler : function(form) {
+						$.post("/addProject", 
+						$("#addForm").serialize(),
+						function(data, status) {
+							if (data.code == "10000") {
+			                    alert( '项目添加成功' );
+			                    setTimeout(function(){
+			                    	/* var index = layer.open();
+			                    	layer.close(layer.index); */
+			                    	$("#ArbetTable").bootstrapTable('refresh');
+			                    }, 500);
+							} else {
+								$("#cmsg").text(data.msg);
+								$("#cmsg").css("color","red");
+			                    //alert('用户名或密码错误');
+							}
+						});
+					}
+				});
+			});
+
+		</script>
+		
+		<style>
+			.error{
+				color:red;
+				font-weight:bold;
+			}
+		</style>
+</head>
+
+<body>
+<div id="signup-box" class="signup-box widget-box no-border">
+		<div class="widget-body">
+			<div class="widget-main">
+				<form id="addForm" method="post">
+					<fieldset>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="项目名" name="fproname"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="项目描述" name="fdescription"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="项目版本" name="fversion"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="测试人员" name="ftest"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="地址1" name="furl1"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="地址2" name="furl2"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="地址3" name="furl3"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="地址4" name="furl4"/>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+
+
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<input type="text" class="form-control" placeholder="预警邮箱" name="email"/>
+								<i class="icon-retweet"></i>
+							</span>
+						</label>
+						<span id="cmsg"></span>
+
+
+						<div class="space-24"></div>
+
+						<div class="clearfix">
+							<button type="reset" class="width-30 pull-left btn btn-sm">
+								<i class="icon-refresh"></i>
+								重置
+							</button>
+
+							<button type="submit" class="width-65 pull-right btn btn-sm btn-success">
+								确定
+								<i class="icon-arrow-right icon-on-right"></i>
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div><!-- /widget-body -->
+	</div><!-- /signup-box -->
+</body>
+</html>
