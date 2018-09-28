@@ -19,6 +19,19 @@ public class APIModel {
 	private int fcasenum;
 	private Timestamp fcreatetime;
 	private Timestamp fupdatetime;
+	
+	
+	public APIModel(String faid, String fapiname, String faurl, String ftype, String fcontenttype) {
+		super();
+		this.faid = faid;
+		this.fapiname = fapiname;
+		this.faurl = faurl;
+		this.ftype = ftype;
+		this.fcontenttype = fcontenttype;
+	}
+	public APIModel() {
+		super();
+	}
 	public String getFaid() {
 		return faid;
 	}

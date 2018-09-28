@@ -149,7 +149,7 @@ public class ProjectService {
 	 * @return
 	 */
 	public List<ProjectModel> getPros(){
-		return projectDao.getProList(null);
+		return projectDao.getPros();
 	}
 
 }

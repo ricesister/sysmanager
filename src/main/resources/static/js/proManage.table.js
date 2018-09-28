@@ -116,11 +116,15 @@ function delPro(proid){
                 setTimeout(function(){
                 	$("#ArbetTable").bootstrapTable('refresh');
                 }, 500);
-			} else {
-				/*$("#message").text(data.msg);
-				$("#message").css("color","red");*/
-                alert('删除失败');
+                return;
+			} if(data.code == "110014"){
+				alert('项目无法删除');
+				 setTimeout(function(){
+	                	$("#ArbetTable").bootstrapTable('refresh');
+	                }, 500);
+				 return;
 			}
+            alert('删除失败');
 		});
 	}
 }
@@ -165,7 +169,7 @@ function addPro(){
 	  shade: false,
 	  closeBtn: 1,
 	  title: "项目新增", //不显示标题
-	  area : ['400px' , '600px'], 
+	  area : ['300px' , '500px'], 
       scrollbar: false,//禁止浏览器滚动
 	  content:  'showAddProject', //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
 	});

@@ -46,7 +46,7 @@ public interface ProjectDao {
 	int getCount(Map<String, Object> condition);
 	
 	/**
-	 * 获取项目列表，根据条件
+	 * 获取项目列表，根据条件-分页
 	 * @param project
 	 * @return
 	 */
@@ -58,5 +58,10 @@ public interface ProjectDao {
 	 * @return
 	 */
 	ProjectModel getProInfo(@Param("fproid") String proid);
+	/**
+	 * 获取项目
+	 * @return
+	 */
+	List<ProjectModel> getPros();
 	
 }

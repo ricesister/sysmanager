@@ -38,4 +38,29 @@ public interface APIDao {
 	 * @return
 	 */
 	int getCount(Map<String, Object> condition);
+	
+	/**
+	 * 根据接口id获取信息
+	 * @param aid
+	 * @return
+	 */
+	APIModel SelectAPI(APIModel apiModel);
+	/**
+	 * 删除api-faid
+	 * @param aid
+	 * @return
+	 */
+	int delAPI(@Param("faid") String aid);
+	/**
+	 * 编辑
+	 * @param apiModel
+	 * @return
+	 */
+	int editAPI(APIModel apiModel);
+	/**
+	 * 新增
+	 * @param apiModel
+	 * @return
+	 */
+	int addAPI(APIModel apiModel);
 }

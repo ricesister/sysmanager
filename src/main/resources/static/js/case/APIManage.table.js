@@ -84,8 +84,8 @@ $(function(){
 });
 
 function operation(value, row, index){
-	var html = '<button class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i>编辑'
-			+ '</button>&nbsp;<button class="btn btn-xs btn-danger"><i class="icon-trash bigger-120"></i>删除</button>'
+	var html = '<button class="btn btn-xs btn-info"  onclick="editAPI('+row.faid+')"><i class="icon-edit bigger-120"></i>编辑'
+			+ '</button>&nbsp;<button class="btn btn-xs btn-danger" onclick="delAPI('+row.faid+')"><i class="icon-trash bigger-120"></i>删除</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-success"><i class="icon-arrow-right icon-on-right"></i>执行</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-warning"><i class="icon-cog"></i>用例管理</button>';
 	return html;
@@ -97,10 +97,10 @@ function changeCondition(){
 }
 
 //删除项目
-function delPro(proid){
-	if(proid != null && proid != ""){
-		$.get("/delProject", 
-			{fproid:proid}, 
+function delAPI(aid){
+	if(aid != null && aid != ""){
+		$.get("/delAPI", 
+			{faid:aid}, 
 		function(data, status) {
 			if (data.code == "10000") {
                 alert( '删除成功' );
@@ -108,9 +108,7 @@ function delPro(proid){
                 	$("#ArbetTable").bootstrapTable('refresh');
                 }, 500);
 			} else {
-				/*$("#message").text(data.msg);
-				$("#message").css("color","red");*/
-                alert('删除失败');
+                alert(data.msg);
 			}
 		});
 	}
@@ -129,38 +127,27 @@ function changeDateFormat(cellval) {
 	return times;
 }
 
-/**
- * 修改项目模态框
- * @param userid
- * @returns
- */
-function editPro(proid){
-	layer.config({
-		  skin: 'demo-class'
-		})
+function editAPI(aid){
 	layer.open({
 	  type: 2,
 	  shade: false,
 	  closeBtn: 1,
-	  title: "项目编辑", //不显示标题
-	  area : ['300px' , '500px'], 
+	  title: "API编辑", //不显示标题
+	  area : ['600px' , '600px'], 
       scrollbar: false,//禁止浏览器滚动
-	  content:  '/getProInfo?fproid='+proid, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+	  content:  '/toEditAPI?faid='+aid, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
 	});
 }
 
 
-function addPro(){
-	layer.config({
-		  skin: 'demo-class'
-		})
+function addAPI(){
 	layer.open({
 	  type: 2,
 	  shade: false,
 	  closeBtn: 1,
-	  title: "项目新增", //不显示标题
+	  title: "API新增", //不显示标题
 	  area : ['400px' , '600px'], 
       scrollbar: false,//禁止浏览器滚动
-	  content:  'showAddProject', //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+	  content:  '/toAddAPI', //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
 	});
 }

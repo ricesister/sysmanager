@@ -15,6 +15,10 @@
 		<link rel="stylesheet" th:href="@{assets/css/bootstrap-timepicker.css}" />
 		<link rel="stylesheet" th:href="@{assets/css/daterangepicker.css}" />
 		<link rel="stylesheet" th:href="@{assets/css/colorpicker.css}" />
+		<script th:src="@{/js/bootstrap/bootstrap-table.js}"></script>
+		<script th:src="@{/js/bootstrap/bootstrap-table-zh-CN.js}"></script>
+		<script th:src="@{/js/layer/layer.js}"></script>
+		<link th:href="@{/css/layer/layer.css}" rel="stylesheet" />
 		
 		<!-- fonts -->
 
@@ -160,9 +164,12 @@
 						$("#editForm").serialize(),
 						function(data, status) {
 							if (data.code == "10000") {
+								var index = layer.getFrameIndex(window.name);
+								layer.close(index); 
 			                    alert( "修改成功" );
+			                    
 			                    setTimeout(function(){
-			                        window.top.location.href = "/index";
+			                    	$("#ArbetTable").bootstrapTable('refresh');
 			                    }, 500);
 							} else {
 								$("#cmsg").text(data.msg);
