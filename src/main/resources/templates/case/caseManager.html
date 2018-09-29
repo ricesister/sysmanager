@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>用例管理</title>
+		<script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+		<script th:src="@{/js/jquery.validate.min.js}"></script>
+		<script th:src="@{/js/layer/layer.js}"></script>
+		<link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" />
+		<link th:href="@{/css/layer/layer.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}" />
+		<script th:src="@{/js/bootstrap/bootstrap-table.js}"></script>
+		<script th:src="@{/js/bootstrap/bootstrap-table-zh-CN.js}"></script>
+		<script th:src="@{/js/bootstrap/bootstrap-paginator.min.js}"></script>
+		<script th:src="@{/js/case/caseManage.table.js}"></script>
+	</head>
+	<body>
+	<script type="text/javascript">
+			function back(){
+				 window.location.href="/toAPI";
+			}
+			
+			
+	</script>
+		<div class="input-group input-group-lg">
+			接口编号：<input type="text" readonly class="input-sm" th:value="${api.faid}" id="faid">
+		</div>
+		<div class="input-group input-group-lg">
+			接口名称：<input type="text" readonly class="input-sm" th:value="${api.fapiname}">
+		</div>
+		<div class="input-group input-group-lg">
+		 接口地址：<input type="text" readonly class="input-sm" th:value="${api.faurl}">
+		&nbsp;&nbsp;<button class="btn btn-danger"><i class="icon-plus-sign bigger-120 green"></i>新增用例</button>
+		&nbsp;&nbsp;<button class="btn btn-primary" ><i class="icon-search icon-on-right bigger-110"></i>执行</button>
+		&nbsp;&nbsp;<button class="btn" onclick="back()"><i class="icon-undo bigger-110"></i>返回</button>
+		</div>
+		<ul class="nav nav-list"><li class="divider"></li></ul>
+		<table id="ArbetTable"></table>
+	</body>
+</html>

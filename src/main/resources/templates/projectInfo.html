@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+		<script th:src="@{/js/jquery.validate.min.js}"></script>
+
+		<link th:href="@{assets/css/bootstrap.min.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{assets/css/font-awesome.min.css}" />
+
+
+		<link rel="stylesheet" th:href="@{assets/css/jquery-ui-1.10.3.custom.min.css}" />
+		<link rel="stylesheet" th:href="@{assets/css/chosen.css}" />
+		<link rel="stylesheet" th:href="@{assets/css/datepicker.css}" />
+		<link rel="stylesheet" th:href="@{assets/css/bootstrap-timepicker.css}" />
+		<link rel="stylesheet" th:href="@{assets/css/daterangepicker.css}" />
+		<link rel="stylesheet" th:href="@{assets/css/colorpicker.css}" />
+		<script th:src="@{/js/bootstrap/bootstrap-table.js}"></script>
+		<script th:src="@{/js/bootstrap/bootstrap-table-zh-CN.js}"></script>
+		<script th:src="@{/js/layer/layer.js}"></script>
+		<link th:href="@{/css/layer/layer.css}" rel="stylesheet" />
+		
+		<!-- fonts -->
+
+		<link rel="stylesheet" href="http://fonts.useso.com/css?family=Open+Sans:400,300" />
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" th:href="@{assets/css/ace.min.css}" />
+		<link rel="stylesheet" th:href="@{assets/css/ace-rtl.min.css}" />
+		<link rel="stylesheet" th:href="@{assets/css/ace-skins.min.css}" />
+
+
+		<script th:src="@{assets/js/ace-extra.min.js}"></script>
+
+	</head>
+		
+	<body>
+		<div class="row">
+			<form id="editForm" method="post">
+				<fieldset>
+				<input type="hidden" class="form-control" placeholder="项目名" name="fproid"
+							th:value="${project.fproid}"/>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="项目名" name="fproname"
+							th:value="${project.fproname}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="项目描述" name="fdescription"
+							th:value="${project.fdescription}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="项目版本" name="fversion"
+							th:value="${project.fversion}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="测试人员" name="ftest"
+							th:value="${project.ftest}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="地址1" name="furl1"
+							th:value="${project.furl1}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="地址2" name="furl2"
+							th:value="${project.furl2}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="地址3" name="furl3"
+							th:value="${project.furl3}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="地址4" name="furl4"
+							th:value="${project.furl4}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+
+
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="预警邮箱" name="email"
+							th:value="${project.email}"/>
+							<i class="icon-retweet"></i>
+						</span>
+			</label>
+
+			<div class="space-4"></div>
+			<script type="text/javascript">
+			var index = parent.layer.getFrameIndex(window.name);
+			$().ready(function() {
+				$("#editForm").validate({
+					rules: {
+						email: {
+						    required: false,
+					        email: true
+						},
+						fdescription: "required",
+						fproname:{
+							required: true,
+							minlength:2
+						},
+						ftest:{
+							required: true
+						},
+						furl1: {
+					        required: true,
+					        minlength: 4,
+					        url:true
+				      	}
+				    },
+				    messages: {
+				    	  fdescription:"请输入项目描述",
+					      email: "请输入正确格式的email",
+					      fproname: {
+					    	  required:"请输入项目名",
+					    	  minlength:"用户名长度不能小于2个字符"
+					      },
+					      ftest: {
+						        required: "请选择测试人员"
+						  },
+						  furl1: {
+					    	    required: "请输入该项目地址",
+					    	    url: "请输入正确url"
+					      }
+				    },
+				    submitHandler : function(form) {
+				    	if($("input[name=nameHidden]").val() == $("input[name=fproname]").val()&&
+				    			$("input[name=descHidden]").val() == $("input[name=fdescription]").val()&&
+				    			$("input[name=verHidden]").val() == $("input[name=fversion]").val() &&
+				    			$("input[name=testHidden]").val() == $("input[name=ftest]").val() &&
+				    			$("input[name=url1Hidden]").val() == $("input[name=furl1]").val() &&
+				    			$("input[name=url2Hidden]").val() == $("input[name=furl2]").val() &&
+				    			$("input[name=url3Hidden]").val() == $("input[name=furl3]").val() &&
+				    			$("input[name=url4Hidden]").val() == $("input[name=furl4]").val() &&
+				    			$("input[name=emailHidden]").val() == $("input[name=email]").val()){
+				    		$("#cmsg").text("数据没有变动，无法提交");
+				    		$("#cmsg").css("color","red");
+				    		return;
+				    	}
+						$.post("/editProject", 
+						$("#editForm").serialize(),
+						function(data, status) {
+							if (data.code == "10000") {
+								parent.$("#ArbetTable").bootstrapTable('refresh');
+								parent.layer.msg( "修改成功" );
+								parent.layer.close(index); 
+							} else {
+								$("#cmsg").text(data.msg);
+								$("#cmsg").css("color","red");
+							}
+						});
+					}
+				});
+			});
+			
+			</script>
+			<div id="cmsg" align="center"></div>
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="icon-ok bigger-110"></i>
+						修改
+					</button>
+
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="icon-undo bigger-110"></i>
+						重置
+					</button>
+				</div>
+			</div>
+			</fieldset>
+		</form>
+			
+			
+		</div>
+		
+		
+			<input type="hidden" name="nameHidden" th:value="${project.fproname}" >
+			<input type="hidden" name="descHidden" th:value="${project.fdescription}">
+			<input type="hidden" name="verHidden" th:value="${project.fversion}">
+			<input type="hidden" name="testHidden" th:value="${project.ftest}">
+			<input type="hidden" name="url1Hidden" th:value="${project.furl1}">
+			<input type="hidden" name="url2Hidden" th:value="${project.furl2}">
+			<input type="hidden" name="url3Hidden" th:value="${project.furl3}">
+			<input type="hidden" name="url4Hidden" th:value="${project.furl4}">
+			<input type="hidden" name="emailHidden" th:value="${project.email}">
+	</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+		<script th:src="@{/js/jquery.validate.min.js}"></script>
+
+		<link th:href="@{assets/css/bootstrap.min.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{assets/css/font-awesome.min.css}" />
+
+
+		<link rel="stylesheet" th:href="@{/assets/css/jquery-ui-1.10.3.custom.min.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/chosen.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/datepicker.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/bootstrap-timepicker.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/daterangepicker.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/colorpicker.css}" />
+		<script th:src="@{/js/bootstrap/bootstrap-table.js}"></script>
+		<script th:src="@{/js/bootstrap/bootstrap-table-zh-CN.js}"></script>
+		<script th:src="@{/js/layer/layer.js}"></script>
+		<link th:href="@{/css/layer/layer.css}" rel="stylesheet" />
+		
+		<!-- fonts -->
+
+		<link rel="stylesheet" href="http://fonts.useso.com/css?family=Open+Sans:400,300" />
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" th:href="@{/assets/css/ace.min.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/ace-rtl.min.css}" />
+		<link rel="stylesheet" th:href="@{/assets/css/ace-skins.min.css}" />
+
+
+		<script th:src="@{assets/js/ace-extra.min.js}"></script>
+
+	</head>
+		
+	<body>
+		<div class="row">
+			<form id="editForm" method="post">
+				<fieldset>
+				<input type="hidden" class="form-control" placeholder="接口id" name="faid"
+							th:value="${api.faid}"/>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="接口描述" name="fapiname"
+							th:value="${api.fapiname}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="地址" name="faurl"
+							th:value="${api.faurl}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="类型" name="ftype"
+							th:value="${api.ftype}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+					<label class="block clearfix">
+						<span class="block input-icon input-icon-right">
+							<input type="text" class="form-control" placeholder="请求类型" name="fcontenttype"
+							th:value="${api.fcontenttype}"/>
+							<i class="icon-user"></i>
+						</span>
+					</label>
+			<div class="space-4"></div>
+			<script type="text/javascript">
+			var index = parent.layer.getFrameIndex(window.name);
+			$().ready(function() {
+				$("#editForm").validate({
+					rules: {
+						faurl: {
+						    required: false,
+						},
+						fapiname: "required",
+						ftype:{
+							required: true
+						},
+						fcontenttype: {
+					        required: true,
+				      	}
+				    },
+				    messages: {
+			    		  fapiname:"请输入接口描述",
+			    		  ftype: "请输入请求类型",
+			    		  fcontenttype: {
+						        required: "请输入入参请求类型"
+						  },
+						  faurl: {
+					    	    required: "请输入接口请求地址"
+					      }
+				    },
+				    submitHandler : function(form) {
+				    	if($("input[name=nameHidden]").val() == $("input[name=fapiname]").val()&&
+				    			$("input[name=urlHidden]").val() == $("input[name=faurl]").val()&&
+				    			$("input[name=typeHidden]").val() == $("input[name=ftype]").val() &&
+				    			$("input[name=conHidden]").val() == $("input[name=fcontenttype]").val()){
+				    		$("#cmsg").text("数据没有变动，无法提交");
+				    		$("#cmsg").css("color","red");
+				    		return;
+				    	}
+						$.post("/editAPI", 
+						$("#editForm").serialize(),
+						function(data, status) {
+							if (data.code == "10000") {
+								parent.layer.msg('保存成功！');
+								parent.$("#ArbetTable").bootstrapTable('refresh');
+								parent.layer.close(index); 
+							} else {
+								$("#cmsg").text(data.msg);
+								$("#cmsg").css("color","red");
+							}
+						});
+					}
+				});
+			});
+			
+			</script>
+			<div id="cmsg" align="center"></div>
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="icon-ok bigger-110"></i>
+						修改
+					</button>
+
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="icon-undo bigger-110"></i>
+						重置
+					</button>
+				</div>
+			</div>
+			</fieldset>
+		</form>
+			
+			
+		</div>
+		
+		
+			<input type="hidden" name="nameHidden" th:value="${api.fapiname}" >
+			<input type="hidden" name="urlHidden" th:value="${api.faurl}">
+			<input type="hidden" name="typeHidden" th:value="${api.ftype}">
+			<input type="hidden" name="conHidden" th:value="${api.fcontenttype}">
+	</body>
+</html>

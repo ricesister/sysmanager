@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cps.fs.APImanagerSys.dao.ProjectDao">
+    <sql id="BaseTable">
+    	t_project
+    </sql>
+    
+    <sql id="Base_column">
+    	frowid, fproid, fproname, fdescription, fversion, ftest, furl1,
+    	furl2, furl3, furl4, fcreatetime,email
+    </sql>
+    
+    <sql id="upd_column">
+    	email, fproid, fproname, fdescription, fversion, ftest, furl1,
+    	furl2, furl3, furl4, fcreatetime
+    </sql>
+    
+    <!-- 获取用户数量 -->
+    <select id="getCount" resultType="Integer" parameterType="java.util.Map">
+    	select count(fproid) from t_project
+    	<where>
+    		<if test="fproname != null and fproname != ''">
+    		 	AND fproname like CONCAT('%',#{fproname},'%')
+    		</if>
+    		<if test="ftest != null and ftest != ''">
+    		 	AND ftest like CONCAT('%',#{ftest},'%')
+    		</if>
+    		<if test="ftest != null and ftest != ''">
+    		 	AND email like CONCAT('%',#{email},'%')
+    		</if>
+   		</where>
+    </select>
+    
+    <select id="getPros" resultType="cps.fs.APImanagerSys.model.ProjectModel">
+    	SELECT
+    	<include refid="Base_column"></include>
+    	FROM
+    	<include refid="BaseTable"></include>
+    </select>
+    
+    <!-- 修改项目 -->
+    <update id="editProject">
+    	UPDATE
+    	<include refid="BaseTable"></include>
+    	<set>
+    		
+    		<if test="email != null">
+    			email = #{email, jdbcType=VARCHAR},
+    		</if>
+    		<if test="fproname != null">
+    			fproname = #{fproname, jdbcType=VARCHAR},
+    		</if>
+    		<if test="fdescription != null">
+    			fdescription = #{fdescription, jdbcType=VARCHAR},
+    		</if>
+    		<if test="fversion != null">
+    			fversion = #{fversion, jdbcType=VARCHAR},
+    		</if>
+    		<if test="ftest != null">
+    			ftest = #{ftest, jdbcType=VARCHAR},
+    		</if>
+    		<if test="furl1 != null">
+    			furl1 = #{furl1, jdbcType=VARCHAR},
+    		</if>
+    		<if test="furl2 != null">
+    			furl2 = #{furl2, jdbcType=VARCHAR},
+    		</if>
+    		<if test="furl3 != null">
+    			furl3 = #{furl3, jdbcType=VARCHAR},
+    		</if>
+    		<if test="furl4 != null">
+    			furl4 = #{furl4, jdbcType=VARCHAR},
+    		</if>
+    	</set>
+    	<where>
+   			<if test="fproid != null">
+    			AND fproid = #{fproid, jdbcType=VARCHAR}
+    		</if>
+    	</where>
+    </update>
+    
+    <!-- 新增项目 -->
+    <insert id="addProject">
+    	INSERT INTO
+    	<include refid="BaseTable"></include>
+    	<trim prefix="(" suffix=")" suffixOverrides=",">
+    		<include refid="upd_column"></include>
+    	</trim>
+    	<trim  prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{email, jdbcType=VARCHAR}, #{fproid, jdbcType=VARCHAR}, #{fproname, jdbcType=VARCHAR}, 
+            #{fdescription, jdbcType=VARCHAR}, #{fversion, jdbcType=VARCHAR},
+            #{ftest, jdbcType=VARCHAR}, #{furl1, jdbcType=VARCHAR},
+            #{furl2, jdbcType=VARCHAR}, #{furl3, jdbcType=VARCHAR},
+             #{furl4,jdbcType=VARCHAR}, NOW()
+        </trim>
+    </insert>
+    
+    <!-- 删除项目 -->
+    <delete id="delProject">
+    	DELETE FROM 
+    	<include refid="BaseTable"></include>
+    	WHERE
+    	fproid = #{fproid, jdbcType=VARCHAR}
+    </delete>
+    
+    <!-- 获取项目列表 -->
+    <select id="getProList" resultType="cps.fs.APImanagerSys.model.ProjectModel" parameterType="java.util.Map">
+    	SELECT
+    	<include refid="Base_column"></include>
+    	FROM
+    	<include refid="BaseTable"></include>
+    	<where> 
+    		<if test="fproname != null and fproname != ''">
+    		 	AND fproname like CONCAT('%',#{fproname},'%')
+    		</if>
+    		<if test="ftest != null and ftest != ''">
+    		 	AND ftest like CONCAT('%',#{ftest},'%')
+    		</if>
+    		<if test="email != null and email != ''">
+    		 	AND email like CONCAT('%',#{email},'%')
+    		</if>
+    	</where>
+    	LIMIT #{currentPage}, #{pageSize}
+    </select>
+    
+    <select id="getProInfo" resultType="cps.fs.APImanagerSys.model.ProjectModel">
+    	SELECT
+    	<include refid="Base_column"></include>
+    	FROM
+    	<include refid="BaseTable"></include>
+    	<where>
+    		<if test="fproid != null and fproid != ''">
+    			AND fproid = #{fproid, jdbcType=VARCHAR}
+    		</if>
+    	</where>
+    </select>
+    
+</mapper>
