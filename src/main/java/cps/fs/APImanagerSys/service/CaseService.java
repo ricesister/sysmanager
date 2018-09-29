@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cps.fs.APImanagerSys.dao.CaseDao;
+import cps.fs.APImanagerSys.exceptions.ApiManagerException;
 import cps.fs.APImanagerSys.model.CaseModel;
 import cps.fs.APImanagerSys.model.ProjectModel;
 
@@ -41,6 +42,17 @@ public class CaseService {
 		page.put("total", count);
 		
 		return page;
+	}
+	
+	/**
+	 * 根据caseid获取用例详细信息
+	 * @param fcaseid
+	 * @return
+	 */
+	public CaseModel getInfo(String fcaseid) {
+		if(fcaseid == null || fcaseid == "") {
+			throw new ApiManagerException()
+		}
 	}
 
 }

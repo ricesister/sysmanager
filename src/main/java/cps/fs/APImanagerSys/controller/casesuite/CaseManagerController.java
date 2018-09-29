@@ -34,6 +34,13 @@ public class CaseManagerController {
 		return page;
 	}
 	
+	public @ResponseBody Map<String, Object> getInfo(
+			@RequestParam(name="fcaseid",required=true) String fcaseid){
+		Map<String, Object> page = caseService.selectCaseList(faid, begin, pageSize);
+		return page;
+	}
+	
+	
 	@ApiOperation("跳转到用例管理页面")
 	@GetMapping("/toCaseManager")
 	public String toCaseManager(
@@ -42,7 +49,13 @@ public class CaseManagerController {
 		APIModel api = apiDao.SelectAPI(new APIModel(faid, null, null, null, null));
 		request.setAttribute("api", api);
 		return "case/caseManager";
-		
+	}
+	
+	
+	@ApiOperation("测试页面")
+	@GetMapping("/testTemplate")
+	public String index() {
+		return "case/caseInfo";
 	}
 	
 	

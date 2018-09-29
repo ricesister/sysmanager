@@ -20,6 +20,11 @@ public interface CaseDao {
 	 * @return
 	 */
 	int getCount(Map<String, Object> condition);
-	
+	/**
+	 * 根据条件获取详细case信息
+	 * @param condition
+	 * @return
+	 */
+	CaseModel getCaseInfo(Map<String, Object> condition);
 
 }

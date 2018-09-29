@@ -7,12 +7,12 @@
     
     <sql id="Base_column">
     	frowid, fcaseid, faid, fcasedesp, fpoint, frequest, fstatus, fexpect, fresponse,
-    	fcreatetime, fupdatetime, fcreateuser, fupdateuser
+    	fcreatetime, fupdatetime, fcreateuser, fupdateuser, former, flatter
     </sql>
     
     <sql id="add_column">
     	fcaseid, faid, fcasedesp, fpoint, frequest, fstatus, fexpect, fresponse,
-    	fcreatetime, fcreateuser
+    	fcreatetime, fcreateuser, former, flatter
     </sql>
     
     <!-- 获取列表 -->
@@ -41,5 +41,17 @@
     		 	AND faid = #{faid}
     		</if>
    		</where>
+    </select>
+    
+    <select id="getCaseInfo" resultType="cps.fs.APImanagerSys.model.CaseModel" parameterType="java.util.Map">
+    	SELECT
+    	<include refid="Base_column"></include>
+    	FROM
+    	<include refid="BaseTable"></include>
+    	<where> 
+    		<if test="faid != null and faid != ''">
+    		 	AND faid = #{faid}
+    		</if>
+    	</where>
     </select>
 </mapper>

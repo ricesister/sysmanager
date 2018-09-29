@@ -33,6 +33,12 @@ $(function(){
 	              field: 'fcasedesp',
 	              title: '用例描述',
 	              align: 'center',
+	              valign: 'middle'
+	            
+	          }, {
+	              field: 'fcaseid',
+	              title: '用例描述',
+	              align: 'center',
 	              valign: 'middle',
 	              visible: false
 	            
@@ -84,58 +90,6 @@ function changeCondition(){
 	$("#ArbetTable").bootstrapTable('refresh');
 }
 
-//删除项目
-function delAPI(aid){
-	if(aid != null && aid != ""){
-		$.get("/delAPI", 
-			{faid:aid}, 
-		function(data, status) {
-			if (data.code == "10000") {
-                alert( '删除成功' );
-                setTimeout(function(){
-                	$("#ArbetTable").bootstrapTable('refresh');
-                }, 500);
-			} else {
-                alert(data.msg);
-			}
-		});
-	}
-}
-
-
-//转换日期格式(时间戳转换为datetime格式)
-function changeDateFormat(cellval) {
-	if(cellval == '' ||cellval == null){
-		return;
-	}
+function editCase(caseid){
 	
-	var d = new Date(cellval);
-
-	var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-	return times;
-}
-
-function editAPI(aid){
-	layer.open({
-	  type: 2,
-	  shade: false,
-	  closeBtn: 1,
-	  title: "API编辑", //不显示标题
-	  area : ['600px' , '600px'], 
-      scrollbar: false,//禁止浏览器滚动
-	  content:  '/toEditAPI?faid='+aid, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-	});
-}
-
-
-function addAPI(){
-	layer.open({
-	  type: 2,
-	  shade: false,
-	  closeBtn: 1,
-	  title: "API新增", //不显示标题
-	  area : ['400px' , '600px'], 
-      scrollbar: false,//禁止浏览器滚动
-	  content:  '/toAddAPI', //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-	});
 }
