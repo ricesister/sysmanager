@@ -14,6 +14,12 @@ public interface CaseDao {
 	 * @return
 	 */
 	List<CaseModel> getCaseList(Map<String, Object> condition);
+	/**
+	 * 获取某个接口下的用例数目
+	 * @param condition
+	 * @return
+	 */
+	int getCount(Map<String, Object> condition);
 	
 
 }

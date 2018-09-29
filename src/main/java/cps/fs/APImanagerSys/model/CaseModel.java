@@ -9,6 +9,8 @@ import java.sql.Timestamp;
  * @description
  */
 public class CaseModel {
+	
+	private int frowid;
 	private String fcaseid;
 	private String faid;
 	private String fcasedesp;
@@ -92,6 +94,12 @@ public class CaseModel {
 	}
 	public void setFupdateuser(String fupdateuser) {
 		this.fupdateuser = fupdateuser;
+	}
+	public int getFrowid() {
+		return frowid;
+	}
+	public void setFrowid(int frowid) {
+		this.frowid = frowid;
 	}
 	
 	

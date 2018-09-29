@@ -6,121 +6,40 @@
     </sql>
     
     <sql id="Base_column">
-    	frowid, faid, fproid, fapiname, faurl, ftype, fcontenttype, fcasenum, fcreatetime,
-    	fupdatetime
+    	frowid, fcaseid, faid, fcasedesp, fpoint, frequest, fstatus, fexpect, fresponse,
+    	fcreatetime, fupdatetime, fcreateuser, fupdateuser
     </sql>
     
-    <sql id="upd_column">
-    	faid, fproid, fapiname, faurl, ftype, fcontenttype, fcasenum, fcreatetime
+    <sql id="add_column">
+    	fcaseid, faid, fcasedesp, fpoint, frequest, fstatus, fexpect, fresponse,
+    	fcreatetime, fcreateuser
     </sql>
     
-    <!-- 获取项目列表 -->
-    <select id="selectAPIByPro" resultType="cps.fs.APImanagerSys.model.APIModel">
+    <!-- 获取列表 -->
+    <select id="getCaseList" resultType="cps.fs.APImanagerSys.model.CaseModel" parameterType="java.util.Map">
     	SELECT
     	<include refid="Base_column"></include>
     	FROM
     	<include refid="BaseTable"></include>
     	<where> 
-    		<if test="fproid != null and fproid != ''">
-    		 	AND fproid = #{fproid}
-    		</if>
-    	</where>
-    </select>
-    
-     <!-- 获取项目列表 -->
-    <select id="selectAPIList" resultType="cps.fs.APImanagerSys.model.APIModel" parameterType="java.util.Map">
-    	SELECT
-    	<include refid="Base_column"></include>
-    	FROM
-    	<include refid="BaseTable"></include>
-    	<where> 
-    		<if test="fproid != null and fproid != 0">
-    		 	AND fproid = #{fproid}
-    		</if>
-    		<if test="faurl != null and faurl != ''">
-    		 	AND faurl like CONCAT('%',#{faurl},'%')
+    		<if test="faid != null and faid != ''">
+    		 	AND faid = #{faid}
     		</if>
     	</where>
     	LIMIT #{currentPage}, #{pageSize}
     </select>
     
     
-    <!-- 获取api列表数量 -->
+    
+    <!-- 获取列表数量 -->
     <select id="getCount" resultType="Integer" parameterType="java.util.Map">
-    	select count(faid)
+    	select count(fcaseid)
 		FROM
     	<include refid="BaseTable"></include>
     	<where>
-    		<if test="fproid != null and fproid != 0">
-    		 	AND fproid = #{fproid}
-    		</if>
-    		<if test="faurl != null and faurl != ''">
-    		 	AND faurl like CONCAT('%',#{faurl},'%')
+    		<if test="faid != null and faid != ''">
+    		 	AND faid = #{faid}
     		</if>
    		</where>
     </select>
-    
-    <select id="SelectAPI" resultType="cps.fs.APImanagerSys.model.APIModel" parameterType="cps.fs.APImanagerSys.model.APIModel">
-    	SELECT
-    	<include refid="Base_column"></include>
-    	FROM
-    	<include refid="BaseTable"></include>
-    	<where>
-    		<if test="faid != null and faid != ''">
-    			faid = #{faid}
-    		</if>
-    		<if test="faurl != null and faurl != ''">
-    			faurl = #{faurl}
-    		</if>
-    	</where>
-    </select>
-    
-    <delete id="delAPI">
-    	DELETE
-    	FROM
-    	<include refid="BaseTable"></include>
-    	WHERE faid = #{faid}
-    </delete>
-    
-    <update id="editAPI" parameterType="cps.fs.APImanagerSys.model.APIModel">
-    	UPDATE
-    	<include refid="BaseTable"></include>
-    	<set>
-    		
-    		<if test="fapiname != null">
-    			fapiname = #{fapiname, jdbcType=VARCHAR},
-    		</if>
-    		<if test="faurl != null">
-    			faurl = #{faurl, jdbcType=VARCHAR},
-    		</if>
-    		<if test="ftype != null">
-    			ftype = #{ftype, jdbcType=VARCHAR},
-    		</if>
-    		<if test="fcontenttype != null">
-    			fcontenttype = #{fcontenttype, jdbcType=VARCHAR},
-    		</if>
-    		fupdatetime = now()
-    	</set>
-    	<where>
-   			<if test="faid != null">
-    			AND faid = #{faid, jdbcType=VARCHAR}
-    		</if>
-    	</where>
-    </update>
-    
-    <insert id="addAPI">
-    	INSERT INTO
-    	<include refid="BaseTable"></include>
-    	<trim prefix="(" suffix=")" suffixOverrides=",">
-    		<include refid="upd_column"></include>
-    	</trim>
-    	<trim  prefix="VALUES(" suffix=")" suffixOverrides=",">
-            #{faid, jdbcType=VARCHAR}, #{fproid, jdbcType=VARCHAR}, #{fapiname, jdbcType=VARCHAR}, 
-            #{faurl, jdbcType=VARCHAR}, #{ftype, jdbcType=VARCHAR},
-            #{fcontenttype, jdbcType=VARCHAR}, 0,
-            now()
-        </trim>
-    </insert>
-    
-    
 </mapper>
