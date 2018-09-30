@@ -76,6 +76,7 @@
 
 			<div class="space-4"></div>
 			<script type="text/javascript">
+			var index = parent.layer.getFrameIndex(window.name);
 			$().ready(function() {
 				// 手机号码验证
 				jQuery.validator.addMethod("isMobile", function(value, element) {
@@ -132,10 +133,9 @@
 						$("#userInfoForm").serialize(),
 						function(data, status) {
 							if (data.code == "10000") {
-			                    alert( "修改成功" );
-			                    setTimeout(function(){
-			                        window.top.location.href = "/index";
-			                    }, 500);
+								parent.layer.msg('保存成功！');
+								parent.$("#ArbetTable").bootstrapTable('refresh');
+								parent.layer.close(index); 
 							} else {
 								$("#cmsg").text(data.msg);
 								$("#cmsg").css("color","red");

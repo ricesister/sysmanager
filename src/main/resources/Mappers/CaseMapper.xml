@@ -49,8 +49,8 @@
     	FROM
     	<include refid="BaseTable"></include>
     	<where> 
-    		<if test="faid != null and faid != ''">
-    		 	AND faid = #{faid}
+    		<if test="fcaseid != null and fcaseid != ''">
+    		 	AND fcaseid = #{fcaseid}
     		</if>
     	</where>
     </select>

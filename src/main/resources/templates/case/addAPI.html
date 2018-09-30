@@ -58,7 +58,26 @@
 					}
 				});
 			});
-
+			function getProInfo(){
+				//debugger;
+				$("#fproid").empty();
+				$.ajaxSetup({async: false});
+				$.get("/getPros", 
+					function(data, status) {
+					 	$("#fproid").append("<option value='0'>请选择项目</option>");
+						 $.each(data,  function(index, item) {
+					            $("#fproid").append(  //此处向select中循环绑定数据
+					    "<option value="+item.fproid+">" + item.fproname+ "</option>");
+				        });
+				});
+				$.ajaxSetup({async: true});
+			}
+			
+			$(function(){
+				$("#fproid").on("mousedown",function(){
+					getProInfo()
+				});
+			});
 		</script>
 		
 		<style>
@@ -90,22 +109,30 @@
 						</label>
 						<label class="block clearfix">
 							<span class="block input-icon input-icon-right">
-								<input type="text" class="form-control" placeholder="请求类型" name="ftype"/>
-								<i class="icon-user"></i>
-							</span>
-						</label>
-						<label class="block clearfix">
-							<span class="block input-icon input-icon-right">
-								<input type="text" class="form-control" placeholder="入参类型" name="fcontenttype"/>
-								<i class="icon-user"></i>
-							</span>
-						</label>
-						<label class="block clearfix">
-							<span class="block input-icon input-icon-right">
-								<select name="fproid">
-									<option value="0">选择项目</option>
-									<option value="1">crm</option>
+								请求类型：<select name="ftype">
+									<!-- <option value="0">请求类型</option> -->
+									<option value="get">get</option>
+									<option value="post">post</option>
+									<option value="delete">delete</option>
+									<option value="put">put</option>
 								</select>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								入参类型：<select name="fcontenttype">
+									<option value="json">json</option>
+									<option value="form">form</option>
+								</select>
+								<i class="icon-user"></i>
+							</span>
+						</label>
+						<label class="block clearfix">
+							<span class="block input-icon input-icon-right">
+								<select id="fproid" class="input-sm" name="fproid">
+								 	<option value="0">请选择项目</option>
+								 </select>
 								<i class="icon-user"></i>
 							</span>
 						</label>

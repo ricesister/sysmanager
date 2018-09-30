@@ -78,7 +78,7 @@ $(function(){
 });
 
 function operation(value, row, index){
-	var html = '<button class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i>编辑'
+	var html = '<button class="btn btn-xs btn-info" onclick="toEditCase('+row.fcaseid+','+$("#faid").text()+','+$("#fproid").val()+')"><i class="icon-edit bigger-120"></i>编辑'
 			+ '</button>&nbsp;<button class="btn btn-xs btn-danger"><i class="icon-trash bigger-120"></i>删除</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-success"><i class="icon-arrow-right icon-on-right"></i>执行</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-warning"><i class="icon-cog"></i>执行日志</button>';
@@ -90,6 +90,6 @@ function changeCondition(){
 	$("#ArbetTable").bootstrapTable('refresh');
 }
 
-function editCase(caseid){
-	
+function toEditCase(caseid,aid,proid){
+	window.location.href="/getCaseInfo?fcaseid="+caseid+"&faid="+aid+"&fproid="+proid;
 }

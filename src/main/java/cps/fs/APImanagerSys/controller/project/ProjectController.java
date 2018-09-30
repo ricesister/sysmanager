@@ -105,6 +105,14 @@ public class ProjectController {
 		return projectService.getPros();
 	}
 	
+	@ApiOperation("获取该项目urls-ajax")
+	@GetMapping("/getProUrls")
+	public @ResponseBody ProjectModel getProUrls(
+			@RequestParam(name="fproid",required=true) String fproid){
+		return projectService.getProUrls(fproid);
+	}
+	
+	
 	@ApiOperation("根据id-修改项目")
 	@PostMapping("/editProject")
 	public @ResponseBody Map<String, Object> editProject(

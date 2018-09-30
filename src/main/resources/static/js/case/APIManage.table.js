@@ -37,6 +37,13 @@ $(function(){
 	              valign: 'middle',
 	              visible: false
 	            
+	          }, {
+	              field: 'fproid',
+	              title: '项目编号',
+	              align: 'center',
+	              valign: 'middle',
+	              visible: false
+	            
 	          }, 
 	          {
 	              field: 'fapiname',
@@ -87,12 +94,12 @@ function operation(value, row, index){
 	var html = '<button class="btn btn-xs btn-info"  onclick="editAPI('+row.faid+')"><i class="icon-edit bigger-120"></i>编辑'
 			+ '</button>&nbsp;<button class="btn btn-xs btn-danger" onclick="delAPI('+row.faid+')"><i class="icon-trash bigger-120"></i>删除</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-success"><i class="icon-arrow-right icon-on-right"></i>执行</button>'
-			+ '&nbsp;<button class="btn btn-xs btn-warning" onclick="toCase('+row.faid+')"><i class="icon-cog"></i>用例管理</button>';
+			+ '&nbsp;<button class="btn btn-xs btn-warning" onclick="toCase('+row.faid+','+row.fproid+')"><i class="icon-cog"></i>用例管理</button>';
 	return html;
 }
 
-function toCase(aid){
-	 window.location.href="/toCaseManager?faid="+aid;
+function toCase(aid,proid){
+	 window.location.href="/toCaseManager?faid="+aid+"&fproid="+proid;
 }
 
 function changeCondition(){

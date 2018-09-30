@@ -46,18 +46,25 @@
 				line-height:35px;
 			}
 		</style>
-
+		<script type="text/javascript">
+		function back(){
+			 window.location.href="/toCaseManager?fcaseid="+$("input[name=fcaseid]").val()+"&"
+					 +"faid="+$("input[name=faid]").val()+"&fproid="+$("input[name=fproid]").val();
+		}
+		</script>
 	</head>
 		
 	<body>
 		<div class="row">
+			<input type="hidden" name="faid" th:value="${apiModel.faid}">
+			<input type="hidden" name="fproid" th:value="${fproid}">
 			<div class="col-md-5">
 				<div class="row rowCss">
 					<div class="col-md-3 title rowInput">
 					  	用例编号：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" readonly  class="form-control">
+				  		<input type="text" readonly  class="form-control" th:value="${caseModel.fcaseid}" name="fcaseid">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -65,7 +72,7 @@
 					  	用例名：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control">
+				  		<input type="text" class="form-control" th:value="${caseModel.fcasedesp}">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -73,7 +80,7 @@
 					  	测试点：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control">
+				  		<input type="text" class="form-control" th:value="${caseModel.fpoint}">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -81,7 +88,7 @@
 					  	前置处理：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control">
+				  		<input type="text" class="form-control" th:value="${caseModel.former}">
 				  	</div>
 				</div>
 				<div class="row rowCss">
@@ -89,7 +96,7 @@
 					  	请求参数：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3"></textarea>
+				  		<textarea class="form-control" rows="3"  th:text="${caseModel.frequest}"></textarea>
 				  	</div>
 				</div>
 				<div class="row rowCss">
@@ -97,7 +104,7 @@
 					  	预期结果：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3"></textarea>
+				  		<textarea class="form-control" rows="3" th:value="${caseModel.fexpect}"></textarea>
 				  	</div>
 				</div>
 			</div>
@@ -110,6 +117,7 @@
 				  	</div>
 				  	<div class="col-md-9">
 				  		<textarea class="form-control" rows="3"></textarea>
+				  		<input type="hidden" id="short_url" th:value="${apiModel.faurl}">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -117,7 +125,7 @@
 					  	添加人员：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control">
+				  		<input type="text" class="form-control" th:value="${caseModel.fcreateuser}">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -125,7 +133,7 @@
 					  	请求状态：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control">
+				  		<input type="text" class="form-control" th:value="${caseModel.fstatus}">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -133,7 +141,7 @@
 					  	后置处理：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control">
+				  		<input type="text" class="form-control" th:value="${caseModel.flatter}">
 				  	</div>
 				</div>
 				<div class="row rowCss">
@@ -141,7 +149,7 @@
 					  	返回结果：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3"></textarea>
+				  		<textarea class="form-control" rows="3" th:value="${caseModel.fresponse}"></textarea>
 				  	</div>
 				</div>
 			</div>
@@ -152,7 +160,7 @@
 			<button class="btn btn-primary" onclick="changeCondition()"><i class="icon-search icon-on-right bigger-110"></i>提交</button>
 			<button class="btn btn-danger" onclick="addAPI()"><i class="icon-plus-sign bigger-120 green"></i>调试</button>
 			<button class="btn" onclick="myclear()"><i class="icon-undo bigger-110"></i>清空</button>
-			<button class="btn" onclick="myclear()"><i class="icon-undo bigger-110"></i>返回</button>
+			<button class="btn" onclick="back()"><i class="icon-undo bigger-110"></i>返回</button>
 		</div>
 	</body>
 </html>

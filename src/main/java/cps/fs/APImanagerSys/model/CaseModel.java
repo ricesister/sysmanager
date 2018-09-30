@@ -23,6 +23,9 @@ public class CaseModel {
 	private Timestamp fupdatetime;
 	private String fcreateuser;
 	private String fupdateuser;
+	
+	private String former;
+	private String flatter;
 	public String getFcaseid() {
 		return fcaseid;
 	}
@@ -100,6 +103,18 @@ public class CaseModel {
 	}
 	public void setFrowid(int frowid) {
 		this.frowid = frowid;
+	}
+	public String getFormer() {
+		return former;
+	}
+	public void setFormer(String former) {
+		this.former = former;
+	}
+	public String getFlatter() {
+		return flatter;
+	}
+	public void setFlatter(String flatter) {
+		this.flatter = flatter;
 	}
 	
 	

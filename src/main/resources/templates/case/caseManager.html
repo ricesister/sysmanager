@@ -19,17 +19,38 @@
 			function back(){
 				 window.location.href="/toAPI";
 			}
+			function getProUrl(){
+				$("#url").empty();
+				$.ajaxSetup({async: false});
+				$.get("/getProUrls?fproid="+$("#fproid").val(), 
+					function(data, status) {
+						$("#url").append("<option value="+data.furl1+" selected>" + data.furl1+ "</option>");
+						/* $("#url").append("<option value="+data.furl2+">" + data.furl2+ "</option>");
+						$("#url").append("<option value="+data.furl3+">" + data.furl3+ "</option>");
+						$("#url").append("<option value="+data.furl4+">" + data.furl4+ "</option>"); */
+				});
+				$.ajaxSetup({async: true});
+			}
 			
+			$(function(){
+				//$("#url").on("mousedown",function(){
+					getProUrl();
+				//});
+			});
 			
 	</script>
 		<div class="input-group input-group-lg">
-			接口编号：<input type="text" readonly class="input-sm" th:value="${api.faid}" id="faid">
+			<input type="hidden" readonly class="input-sm" th:value="${fproid}" id="fproid">
+			选择接口测试环境(默认url1)：<select id="url"></select>
 		</div>
 		<div class="input-group input-group-lg">
-			接口名称：<input type="text" readonly class="input-sm" th:value="${api.fapiname}">
+			接口编号：<span id="faid" th:text="${api.faid}"></span>
 		</div>
 		<div class="input-group input-group-lg">
-		 接口地址：<input type="text" readonly class="input-sm" th:value="${api.faurl}">
+			接口名称：<span th:text="${api.fapiname}"></span>
+		</div>
+		<div class="input-group input-group-lg">
+		 接口地址：<span th:text="${api.faurl}"></span>
 		&nbsp;&nbsp;<button class="btn btn-danger"><i class="icon-plus-sign bigger-120 green"></i>新增用例</button>
 		&nbsp;&nbsp;<button class="btn btn-primary" ><i class="icon-search icon-on-right bigger-110"></i>执行</button>
 		&nbsp;&nbsp;<button class="btn" onclick="back()"><i class="icon-undo bigger-110"></i>返回</button>

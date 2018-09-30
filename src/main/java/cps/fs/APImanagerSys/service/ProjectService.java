@@ -151,5 +151,10 @@ public class ProjectService {
 	public List<ProjectModel> getPros(){
 		return projectDao.getPros();
 	}
+	
+	
+	public ProjectModel getProUrls(String proid) {
+		return projectDao.getProInfo(proid);
+	}
 
 }

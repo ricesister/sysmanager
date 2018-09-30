@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cps.fs.APImanagerSys.Enum.CaseMsgEnum;
 import cps.fs.APImanagerSys.dao.CaseDao;
 import cps.fs.APImanagerSys.exceptions.ApiManagerException;
 import cps.fs.APImanagerSys.model.CaseModel;
@@ -48,11 +49,20 @@ public class CaseService {
 	 * 根据caseid获取用例详细信息
 	 * @param fcaseid
 	 * @return
+	 * @throws ApiManagerException 
 	 */
-	public CaseModel getInfo(String fcaseid) {
+	public CaseModel getInfo(String fcaseid) 
+			throws ApiManagerException {
 		if(fcaseid == null || fcaseid == "") {
-			throw new ApiManagerException()
+			throw new ApiManagerException(CaseMsgEnum.PARAMS_ERROR);
 		}
+		/**
+		 * 拼路径
+		 */
+		HashMap<String, Object> condition = new HashMap<String, Object>();
+		condition.put("fcaseid", fcaseid);
+		CaseModel caseModel = caseDao.getCaseInfo(condition);
+		return caseModel;
 	}
 
 }
