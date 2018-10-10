@@ -66,4 +66,61 @@ public class StringUtils {
         }
         return null;
     }
+    
+    /**
+     * 转换url:根路径与
+     * @param apiUrl
+     * @return
+     */
+    public static String formatUrl(String homeUrl, String apiUrl) {
+    	if(apiUrl.startsWith("http")) {
+    		return apiUrl;
+    	}
+    	if(homeUrl.endsWith("/")) {
+    		if(apiUrl.startsWith("/")) {
+    			return homeUrl+apiUrl.substring(1);
+    		}
+    		return homeUrl+apiUrl;
+    	}else {
+    		if(apiUrl.startsWith("/")) {
+    			return homeUrl+apiUrl;
+    		}
+    		return homeUrl+"/"+apiUrl;
+    	}
+    }
+    
+    /**
+	 * 查看string是否不为空
+	 * @param str
+	 * @return
+	 */
+	public static boolean isNotEmpty(String str) {
+		return null != str && !"".equals(str);
+	}
+
+	/**
+	 * 查看string是否为空
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(String str) {
+		return null == str || "".equals(str);
+	}
+	
+	/**
+	 * 
+	 * @param sourceStr 待替换字符串
+	 * @param matchStr  匹配字符串
+	 * @param replaceStr  目标替换字符串
+	 * @return
+	 */
+	public static String replaceFirst(String sourceStr,String matchStr,String replaceStr){
+		int index = sourceStr.indexOf(matchStr);
+		int matLength = matchStr.length();
+		int sourLength = sourceStr.length();
+		String beginStr = sourceStr.substring(0,index);
+		String endStr = sourceStr.substring(index+matLength,sourLength);
+		sourceStr = beginStr+replaceStr+endStr;
+		return sourceStr;
+	}
 }

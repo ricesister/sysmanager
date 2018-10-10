@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.util.StringUtil;
+
+import cps.fs.APImanagerSys.common.util.StringUtils;
 import cps.fs.APImanagerSys.dao.APIDao;
 import cps.fs.APImanagerSys.exceptions.ApiManagerException;
 import cps.fs.APImanagerSys.model.APIModel;
@@ -51,13 +54,17 @@ public class CaseManagerController {
 			HttpServletRequest request,
 			@RequestParam(name="fproid",required=true) String fproid,
 			@RequestParam(name="faid",required=true) String faid,
-			@RequestParam(name="fcaseid",required=true) String fcaseid) {
+			@RequestParam(name="fcaseid",required=true) String fcaseid,
+			@RequestParam(name="furl",required=true) String furl) {
 		try {
 			CaseModel caseModel = caseService.getInfo(fcaseid);
 			APIModel apiModel = apiService.getAPIInfo(faid);
+			request.setAttribute("oldUrl", apiModel.getFaurl());
 			/**
 			 * 拼接路径
 			 */
+			String complete = StringUtils.formatUrl(furl, apiModel.getFaurl());
+			apiModel.setFaurl(complete);
 			request.setAttribute("apiModel", apiModel);
 			request.setAttribute("caseModel", caseModel);
 			request.setAttribute("fproid", fproid);

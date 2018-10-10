@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cps.fs.APImanagerSys.Enum.CaseMsgEnum;
+import cps.fs.APImanagerSys.common.util.client.HttpCaseUtil;
 import cps.fs.APImanagerSys.dao.CaseDao;
 import cps.fs.APImanagerSys.exceptions.ApiManagerException;
+import cps.fs.APImanagerSys.model.APIModel;
 import cps.fs.APImanagerSys.model.CaseModel;
 import cps.fs.APImanagerSys.model.ProjectModel;
 
@@ -63,6 +65,17 @@ public class CaseService {
 		condition.put("fcaseid", fcaseid);
 		CaseModel caseModel = caseDao.getCaseInfo(condition);
 		return caseModel;
+	}
+	
+	
+	/**
+	 * 调试接口
+	 * @param caseModel
+	 * @param apiModel
+	 * @throws Exception 
+	 */
+	public CaseModel toDebugCase(CaseModel caseModel,APIModel apiModel) throws Exception {
+		return HttpCaseUtil.apiTest(caseModel, apiModel);
 	}
 
 }

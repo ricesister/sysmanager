@@ -51,6 +51,14 @@
 			 window.location.href="/toCaseManager?fcaseid="+$("input[name=fcaseid]").val()+"&"
 					 +"faid="+$("input[name=faid]").val()+"&fproid="+$("input[name=fproid]").val();
 		}
+		function toDebug(){
+			$.post("/case/debug", 
+				function(data, status) {
+					alert(data.caseModel2);
+				 	$("input[name=fresponse]").text(data.caseModel2.fresponse);
+		        });
+			});
+		}
 		</script>
 	</head>
 		
@@ -104,7 +112,7 @@
 					  	预期结果：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3" th:value="${caseModel.fexpect}"></textarea>
+				  		<textarea class="form-control" rows="3" th:text="${caseModel.fexpect}"></textarea>
 				  	</div>
 				</div>
 			</div>
@@ -116,8 +124,8 @@
 					  	请求链接：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3"></textarea>
-				  		<input type="hidden" id="short_url" th:value="${apiModel.faurl}">
+				  		<textarea class="form-control" rows="3" th:text="${apiModel.faurl}" readonly></textarea>
+				  		<input type="hidden" id="short_url" th:value="${oldUrl}">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -125,7 +133,7 @@
 					  	添加人员：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control" th:value="${caseModel.fcreateuser}">
+				  		<input type="text" class="form-control" readonly th:value="${caseModel.fcreateuser}">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -133,7 +141,7 @@
 					  	请求状态：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control" th:value="${caseModel.fstatus}">
+				  		<input type="text" class="form-control" th:value="${caseModel.fstatus}" readonly>
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -149,7 +157,7 @@
 					  	返回结果：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3" th:value="${caseModel.fresponse}"></textarea>
+				  		<textarea class="form-control" rows="3" th:text="${caseModel.fresponse}"  readonly name="fresponse"></textarea>
 				  	</div>
 				</div>
 			</div>
@@ -158,7 +166,7 @@
 		</div>	
 		<div class="row rowCss" style="text-align:center">
 			<button class="btn btn-primary" onclick="changeCondition()"><i class="icon-search icon-on-right bigger-110"></i>提交</button>
-			<button class="btn btn-danger" onclick="addAPI()"><i class="icon-plus-sign bigger-120 green"></i>调试</button>
+			<button class="btn btn-danger" onclick="toDebug()"><i class="icon-plus-sign bigger-120 green"></i>调试</button>
 			<button class="btn" onclick="myclear()"><i class="icon-undo bigger-110"></i>清空</button>
 			<button class="btn" onclick="back()"><i class="icon-undo bigger-110"></i>返回</button>
 		</div>

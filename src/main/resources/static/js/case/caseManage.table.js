@@ -15,7 +15,7 @@ $(function(){
 	              offset: params.offset, // 每页显示数据的开始行号
 	              sort: params.sort, // 要排序的字段
 	              sortOrder: params.order, // 排序规则
-	              faid: $("#faid").val()
+	              faid: $("#faid").text()
 	          }
 	      },
 	      sortName: 'frowid', // 要排序的字段
@@ -47,17 +47,31 @@ $(function(){
 	              field: 'frequest',
 	              title: '请求参数',
 	              align: 'center',
-	              valign: 'middle'
+	              valign: 'middle',
+	              cellStyle:{ 
+	            	  css:{ 
+	            	  "overflow": "hidden", 
+	            	  "text-overflow": "ellipsis", 
+	            	  "white-space": "nowrap" 
+	            	  }
+            	  } 
 	          }, {
 	              field: 'fexpect',
 	              title: '预期结果',
 	              align: 'center',
-	              valign: 'middle'
+	              valign: 'middle',
+	              cellStyle:{ 
+	            	  css:{ 
+	            	  "overflow": "hidden", 
+	            	  "text-overflow": "ellipsis", 
+	            	  "white-space": "nowrap" 
+	            	  }
+            	  } 
 	          },{
 	              field: 'fupdatetime',
 	              title: '更新时间',
 	              align: 'center',
-	              valign: 'middle',
+	              valign: 'middle'
 	          },{
 	              title: "操作",
 	              align: 'center',
@@ -78,7 +92,7 @@ $(function(){
 });
 
 function operation(value, row, index){
-	var html = '<button class="btn btn-xs btn-info" onclick="toEditCase('+row.fcaseid+','+$("#faid").text()+','+$("#fproid").val()+')"><i class="icon-edit bigger-120"></i>编辑'
+	var html = '<button class="btn btn-xs btn-info" onclick="toEditCase('+row.fcaseid+','+$("#faid").text()+','+$("#fproid").val()+',\''+$("#url").text()+'\')"><i class="icon-edit bigger-120"></i>编辑'
 			+ '</button>&nbsp;<button class="btn btn-xs btn-danger"><i class="icon-trash bigger-120"></i>删除</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-success"><i class="icon-arrow-right icon-on-right"></i>执行</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-warning"><i class="icon-cog"></i>执行日志</button>';
@@ -90,6 +104,6 @@ function changeCondition(){
 	$("#ArbetTable").bootstrapTable('refresh');
 }
 
-function toEditCase(caseid,aid,proid){
-	window.location.href="/getCaseInfo?fcaseid="+caseid+"&faid="+aid+"&fproid="+proid;
+function toEditCase(caseid,aid,proid,furl){
+	window.location.href="/getCaseInfo?fcaseid="+caseid+"&faid="+aid+"&fproid="+proid+"&furl="+furl;
 }

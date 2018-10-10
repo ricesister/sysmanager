@@ -16,7 +16,7 @@ public class CaseModel {
 	private String fcasedesp;
 	private String fpoint;
 	private String frequest;
-	private String fstatus;
+	private int fstatus;
 	private String fexpect;
 	private String fresponse;
 	private	Timestamp fcreatetime;
@@ -26,6 +26,49 @@ public class CaseModel {
 	
 	private String former;
 	private String flatter;
+	
+	
+	public CaseModel(String frequest, int fstatus, String fexpect, String fresponse, String fsave) {
+		super();
+		this.frequest = frequest;
+		this.fstatus = fstatus;
+		this.fexpect = fexpect;
+		this.fresponse = fresponse;
+		this.fsave = fsave;
+	}
+	public CaseModel() {
+		super();
+	}
+	public CaseModel(String fcaseid, String faid, String fcasedesp, String fpoint, String frequest, int fstatus,
+			String fexpect, String fresponse, Timestamp fcreatetime, Timestamp fupdatetime, String fcreateuser,
+			String fupdateuser, String former, String flatter, String fsave, String furl) {
+		super();
+		this.fcaseid = fcaseid;
+		this.faid = faid;
+		this.fcasedesp = fcasedesp;
+		this.fpoint = fpoint;
+		this.frequest = frequest;
+		this.fstatus = fstatus;
+		this.fexpect = fexpect;
+		this.fresponse = fresponse;
+		this.fcreatetime = fcreatetime;
+		this.fupdatetime = fupdatetime;
+		this.fcreateuser = fcreateuser;
+		this.fupdateuser = fupdateuser;
+		this.former = former;
+		this.flatter = flatter;
+		this.fsave = fsave;
+		this.furl = furl;
+	}
+	/**
+	 * 存储接口返回过程中的数据
+	 */
+	private String fsave;
+	/**
+	 * 测试完整链接
+	 */
+	private String furl;
+	
 	public String getFcaseid() {
 		return fcaseid;
 	}
@@ -56,10 +99,10 @@ public class CaseModel {
 	public void setFrequest(String frequest) {
 		this.frequest = frequest;
 	}
-	public String getFstatus() {
+	public int getFstatus() {
 		return fstatus;
 	}
-	public void setFstatus(String fstatus) {
+	public void setFstatus(int fstatus) {
 		this.fstatus = fstatus;
 	}
 	public String getFexpect() {
@@ -115,6 +158,18 @@ public class CaseModel {
 	}
 	public void setFlatter(String flatter) {
 		this.flatter = flatter;
+	}
+	public String getFsave() {
+		return fsave;
+	}
+	public void setFsave(String fsave) {
+		this.fsave = fsave;
+	}
+	public String getFurl() {
+		return furl;
+	}
+	public void setFurl(String furl) {
+		this.furl = furl;
 	}
 	
 	

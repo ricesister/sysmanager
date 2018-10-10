@@ -93,7 +93,7 @@ $(function(){
 function operation(value, row, index){
 	var html = '<button class="btn btn-xs btn-info"  onclick="editAPI('+row.faid+')"><i class="icon-edit bigger-120"></i>编辑'
 			+ '</button>&nbsp;<button class="btn btn-xs btn-danger" onclick="delAPI('+row.faid+')"><i class="icon-trash bigger-120"></i>删除</button>'
-			+ '&nbsp;<button class="btn btn-xs btn-success"><i class="icon-arrow-right icon-on-right"></i>执行</button>'
+			+ '&nbsp;<button class="btn btn-xs btn-success"><i class="ddddicon-arrow-right icon-on-right"></i>执行</button>'
 			+ '&nbsp;<button class="btn btn-xs btn-warning" onclick="toCase('+row.faid+','+row.fproid+')"><i class="icon-cog"></i>用例管理</button>';
 	return html;
 }
@@ -173,5 +173,20 @@ function addAPI(){
 	  area : ['400px' , '600px'], 
       scrollbar: false,//禁止浏览器滚动
 	  content:  '/toAddAPI', //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+	});
+}
+
+/**
+ * 前往下载exls模板页面
+ */
+function importApi(){
+	layer.open({
+	  type: 2,
+	  shade: false,
+	  closeBtn: 1,
+	  title: "上传", //不显示标题
+	  area : ['800px' , '400px'], 
+      scrollbar: false,//禁止浏览器滚动
+	  content:  '/toUploadApi', //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
 	});
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>上传excel(api)</title>
+	<link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/ace.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/ace-rtl.min.css}" />
+	<script th:src="@{/js/jquery-1.8.0.min.js}"></script>
+	<script th:src="@{/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/js/bootstrap/bootstrap-table.js}"></script>
+	<script th:src="@{/js/bootstrap/bootstrap-table-zh-CN.js}"></script>
+	<script th:src="@{/js/layer/layer.js}"></script>
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+</head>
+
+<body>
+	<div class="jumbotron">
+	  <h1>导入文档</h1>
+	  <p>请根据模板填写再上传。。。</p>
+	  <p><a class="btn btn-primary btn-lg" href="/case/downloadExcel" role="button">下载模板</a></p>
+	  <p><input class="btn btn-primary btn-lg" type="file" role="button"></p>
+	</div>
+</body>
+</html>
