@@ -20,9 +20,7 @@
 		<script th:src="@{/js/layer/layer.js}"></script>
 		<link th:href="@{/css/layer/layer.css}" rel="stylesheet" />
 		
-		<!-- fonts -->
-
-		<link rel="stylesheet" href="http://fonts.useso.com/css?family=Open+Sans:400,300" />
+		
 
 		<!-- ace styles -->
 
@@ -47,17 +45,98 @@
 			}
 		</style>
 		<script type="text/javascript">
+			$("#pro").change(function(){
+			    $("#envir").empty();
+                $("#apiUrl").empty();
+                $("#apiCase").empty();
+				var proid= $(this).val();
+				if(proid==0){
+				    return;
+				}
+                $.ajax({
+                    type:'get',
+                    url:'',
+                    data:{
+                        proid:proid
+                    },
+                    cache:false,
+                    dataType:'json',
+                    success:function(secondDatas){
+
+                        //遍历回传的数据添加到二级select
+                        $.each(secondDatas, function(key, secondData) {
+
+                            var option = '<option value="'+secondData.id+'">'+secondData.categoryName+'</option>'
+                            $("#select-second").append(option)
+
+                        })
+
+                        //二级select展示
+                        $("#box-select-second").fadeIn("slow");
+                        //三级select隐藏
+                        $("#box-select-third").fadeOut("slow");
+                    },
+                    error:function(){
+                        alert("请求失败")
+                    }
+                });
+			});
+		function getProInfo(){
+			//debugger;
+			$("#pro").empty();
+			$.ajaxSetup({async: false});
+			$.get("/getPros", 
+				function(data, status) {
+				 	$("#pro").append("<option value='0'>请选择项目</option>");
+					 $.each(data,  function(index, item) {
+				            $("#pro").append(  //此处向select中循环绑定数据
+				    "<option value="+item.fproid+">" + item.fproname+ "</option>");
+			        });
+			});
+			$.ajaxSetup({async: true});
+		}
+		$(function(){
+			//$("#pro").on("mousedown",function(){
+				getProInfo();
+			//});
+		});
+		//获取查询的case
+		function getCases(){
+			
+		}
+		function clearCase(){
+			$("#frequest").text("");
+			$("#frequest").text("");
+			$("#fresponse").text("");
+			$("#fexpect").text("");
+			$("#assertResult").text("");
+		}
 		function back(){
 			 window.location.href="/toCaseManager?fcaseid="+$("input[name=fcaseid]").val()+"&"
 					 +"faid="+$("input[name=faid]").val()+"&fproid="+$("input[name=fproid]").val();
 		}
+		
+		//请求方式get/post，从页面中获取数据
 		function toDebug(){
-			$.post("/case/debug", 
-				function(data, status) {
-					alert(data.caseModel2);
-				 	$("input[name=fresponse]").text(data.caseModel2.fresponse);
-		        });
-			});
+		    //alert($("#frequest").val());
+			$.post("/case/debug",
+					{frequest:$("#frequest").val(),faurl:$("#faurl").text(),ftype:"post",
+						fexpect:$("#fexpect").val(),fstatus:$("#fstatus").val(),
+						fcontenttype:$("#fcontenttype").val()},
+					function(data, status) {
+						//debugger;
+						//alert(data.caseModel2.fresponse);
+					 	$("#fresponse").text(data.caseModel2.fresponse);
+					 	$("#fresponse").css("color","red");
+					 	if(data.caseModel2.assertResult == null){
+					 		data.caseModel2.assertResult = "测试通过";
+					 		$("#assertResult").text(data.caseModel2.assertResult);
+					 		$("#assertResult").css("color","green");
+					 		return;
+					 	}
+					 	$("#assertResult").text("测试失败：\n"+data.caseModel2.assertResult);
+					 	$("#assertResult").css("color","red");
+			        });
 		}
 		</script>
 	</head>
@@ -66,6 +145,7 @@
 		<div class="row">
 			<input type="hidden" name="faid" th:value="${apiModel.faid}">
 			<input type="hidden" name="fproid" th:value="${fproid}">
+			<input type="hidden" id="fcontenttype" th:value="${apiModel.fcontenttype}">
 			<div class="col-md-5">
 				<div class="row rowCss">
 					<div class="col-md-3 title rowInput">
@@ -96,7 +176,11 @@
 					  	前置处理：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control" th:value="${caseModel.former}">
+				  		项目<select id="pro"></select>
+				  		环境<select id="envir"></select>
+				  		接口<select id="apiUrl"></select>
+			  			用例<select id="apiCase"></select>
+				  		<input type="text" class="form-control" placeholder="请选择前置条件">
 				  	</div>
 				</div>
 				<div class="row rowCss">
@@ -104,7 +188,7 @@
 					  	请求参数：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3"  th:text="${caseModel.frequest}"></textarea>
+				  		<textarea class="form-control" rows="3"  th:text="${caseModel.frequest}" id="frequest"></textarea>
 				  	</div>
 				</div>
 				<div class="row rowCss">
@@ -112,7 +196,15 @@
 					  	预期结果：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3" th:text="${caseModel.fexpect}"></textarea>
+				  		<textarea class="form-control" rows="3" th:text="${caseModel.fexpect}" id="fexpect"></textarea>
+				  	</div>
+				</div>
+				<div class="row rowCss">
+					<div class="col-md-3 title">
+					  	存储变量：
+				  	</div>
+				  	<div class="col-md-9">
+				  		<textarea class="form-control" rows="3" ></textarea>
 				  	</div>
 				</div>
 			</div>
@@ -124,7 +216,7 @@
 					  	请求链接：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3" th:text="${apiModel.faurl}" readonly></textarea>
+				  		<textarea class="form-control" rows="3" th:text="${apiModel.faurl}" readonly id="faurl"></textarea>
 				  		<input type="hidden" id="short_url" th:value="${oldUrl}">
 				  	</div>
 				</div>
@@ -141,7 +233,7 @@
 					  	请求状态：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<input type="text" class="form-control" th:value="${caseModel.fstatus}" readonly>
+				  		<input type="text" class="form-control" th:value="${caseModel.fstatus}" readonly id="fstatus">
 				  	</div>
 				</div>
 				<div class="row rowCss rowInput">
@@ -157,7 +249,15 @@
 					  	返回结果：
 				  	</div>
 				  	<div class="col-md-9">
-				  		<textarea class="form-control" rows="3" th:text="${caseModel.fresponse}"  readonly name="fresponse"></textarea>
+				  		<textarea class="form-control" rows="3" th:text="${caseModel.fresponse}"  readonly id="fresponse" onchange="changeExpect()"></textarea>
+				  	</div>
+				</div>
+				<div class="row rowCss">
+					<div class="col-md-3 title">
+					  	测试结果：
+				  	</div>
+				  	<div class="col-md-9">
+				  		<span id="assertResult"></span>
 				  	</div>
 				</div>
 			</div>
@@ -167,7 +267,7 @@
 		<div class="row rowCss" style="text-align:center">
 			<button class="btn btn-primary" onclick="changeCondition()"><i class="icon-search icon-on-right bigger-110"></i>提交</button>
 			<button class="btn btn-danger" onclick="toDebug()"><i class="icon-plus-sign bigger-120 green"></i>调试</button>
-			<button class="btn" onclick="myclear()"><i class="icon-undo bigger-110"></i>清空</button>
+			<button class="btn" ><i class="icon-undo bigger-110"></i>清空</button>
 			<button class="btn" onclick="back()"><i class="icon-undo bigger-110"></i>返回</button>
 		</div>
 	</body>

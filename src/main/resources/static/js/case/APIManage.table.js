@@ -54,7 +54,14 @@ $(function(){
 	              field: 'faurl',
 	              title: '请求地址',
 	              align: 'center',
-	              valign: 'middle'
+	              valign: 'middle',
+	              cellStyle:{ 
+	            	  css:{ 
+	            	  "overflow": "hidden", 
+	            	  "text-overflow": "ellipsis", 
+	            	  "white-space": "nowrap" 
+	            	  }
+            	  } 
 	          },{
 	              field: 'fcasenum',
 	              title: '用例数',

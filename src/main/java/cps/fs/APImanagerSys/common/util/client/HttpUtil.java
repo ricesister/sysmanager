@@ -155,8 +155,9 @@ public class HttpUtil extends BaseUtil{
 	 * 处理断言及保存save
 	 * @param responseData
 	 * @param apiDataBean
+	 * @throws Exception 
 	 */
-	protected static void verify(String responseData,CaseModel caseModel) {
+	protected static void verify(String responseData,CaseModel caseModel) throws Error {
 		// 验证预期信息
 		//TODO contains关系
 		verifyResult(responseData, caseModel.getFexpect(),

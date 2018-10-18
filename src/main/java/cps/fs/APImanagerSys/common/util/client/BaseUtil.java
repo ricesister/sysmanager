@@ -149,7 +149,7 @@ public class BaseUtil {
 	 * @param contains
 	 */
 	protected static void verifyResult(String sourchData, String verifyStr,
-			boolean contains) {
+			boolean contains) throws Error{
 		if (StringUtils.isEmpty(verifyStr)) {
 			return;
 		}
@@ -167,7 +167,12 @@ public class BaseUtil {
 				String exceptValue = getBuildValue(sourchData, m.group(2));
 				System.out.println(String.format("验证转换后的值%s=%s", actualValue,
 						exceptValue));
-				Assert.assertEquals(actualValue, exceptValue, "验证预期结果失败。");
+				
+				try {
+					Assert.assertEquals(actualValue, exceptValue, "验证预期结果失败。");
+				} catch (Error e) {
+					throw e;
+				}
 			}
 		}
 	}

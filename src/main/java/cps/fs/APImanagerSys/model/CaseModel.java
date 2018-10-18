@@ -26,6 +26,7 @@ public class CaseModel {
 	
 	private String former;
 	private String flatter;
+	private String assertResult;
 	
 	
 	public CaseModel(String frequest, int fstatus, String fexpect, String fresponse, String fsave) {
@@ -170,6 +171,12 @@ public class CaseModel {
 	}
 	public void setFurl(String furl) {
 		this.furl = furl;
+	}
+	public String getAssertResult() {
+		return assertResult;
+	}
+	public void setAssertResult(String assertResult) {
+		this.assertResult = assertResult;
 	}
 	
 	

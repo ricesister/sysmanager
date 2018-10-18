@@ -51,9 +51,17 @@
 		</div>
 		<div class="input-group input-group-lg">
 		 接口地址：<span th:text="${api.faurl}"></span>
-		&nbsp;&nbsp;<button class="btn btn-danger"><i class="icon-plus-sign bigger-120 green"></i>新增用例</button>
-		&nbsp;&nbsp;<button class="btn btn-primary" ><i class="icon-search icon-on-right bigger-110"></i>执行</button>
-		&nbsp;&nbsp;<button class="btn" onclick="back()"><i class="icon-undo bigger-110"></i>返回</button>
+		</div>
+		<div class="input-group input-group-lg">
+			请求类型：<span th:text="${api.ftype}"></span>
+		</div>
+		<div class="input-group input-group-lg">
+			入参类型：<span th:text="${api.fcontenttype}"></span>
+		</div>
+		<div>
+			&nbsp;&nbsp;<button class="btn btn-danger"><i class="icon-plus-sign bigger-120 green"></i>新增用例</button>
+			&nbsp;&nbsp;<button class="btn btn-primary" ><i class="icon-search icon-on-right bigger-110"></i>执行</button>
+			&nbsp;&nbsp;<button class="btn" onclick="back()"><i class="icon-undo bigger-110"></i>返回</button>
 		</div>
 		<ul class="nav nav-list"><li class="divider"></li></ul>
 		<table id="ArbetTable" style="table-layout: fixed;" class="table table-bordered"></table>

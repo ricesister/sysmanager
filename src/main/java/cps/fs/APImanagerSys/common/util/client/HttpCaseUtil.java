@@ -38,6 +38,10 @@ public class HttpCaseUtil extends HttpUtil{
 	    DefaultHttpClient client = new DefaultHttpClient(connManager);
 		System.out.println("--- API test start ---");
 		String apiParam = buildRequestParam(caseModel);
+		//封装参数
+		if(apiModel.getFcontenttype() != null && apiModel.getFcontenttype().equals("form")) {
+			apiModel.setFaurl(apiModel.getFaurl()+"?"+caseModel.getFrequest());
+		}
 		// 封装请求方法
 		HttpUriRequest method = parseHttpRequest(apiModel.getFaurl(),
 				apiModel.getFtype(),caseModel.getFrequest()
@@ -57,7 +61,12 @@ public class HttpCaseUtil extends HttpUtil{
 		} finally {
 			method.abort();
 		}
-		verify(responseData, caseModel);
+		try {
+			verify(responseData, caseModel);
+		} catch (Error e) {
+			e.printStackTrace();
+			caseModel.setAssertResult(e.getMessage());
+		}
 		return caseModel;
 	}
 }

@@ -54,9 +54,9 @@
 						<li class="green">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<span class="user-info">
-									<span th:text="${session.loginUser.fname}"></span>  
+									<span th:text="${session.loginUser?.fname}"></span>
 								</span>
-								<!-- <span th:text="${session.loginUser.username}"></span> -->
+								<!-- <span th:text="${session.loginUser?.username}"></span> -->
 								<i class="icon-caret-down"></i>
 							</a>
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
